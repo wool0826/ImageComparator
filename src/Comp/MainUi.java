@@ -634,8 +634,64 @@ public class MainUi extends JFrame {
             return group;
         }
         public ArrayList<ArrayList<File>> templateMatching(){
+            long startTime = System.currentTimeMillis();
 
-            return null;
+            int length = fileList.length;
+
+            double currentProgress = 0;
+            double increment = 100.0 / length;
+
+            // 유사한 이미지들을 그룹핑하기 위해서 배열선언
+            boolean[] check = new boolean[length];
+            for(int i=0; i<length; i++) check[i] = false;
+
+            // 그룹 번호는 0부터 시작.
+            int groupNum = 0;
+
+            Mat[] imgMat = new Mat[length];
+            destMat = new Mat[length];
+
+            for (int i = 0; i < length; i++) {
+                currentProgress += increment;
+                progressBar.setValue((int) currentProgress);
+
+                imgMat[i] = new Mat();
+                try {
+                    imgMat[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
+                } catch (Exception e) {
+                    System.out.println(fileList[i]);
+                    e.printStackTrace();
+                }
+            }
+
+            int matchMethod = Imgproc.TM_CCOEFF;
+            double maxVal = 0.99;
+
+            ArrayList<ArrayList<File>> group = new ArrayList<>();
+
+            for(int i =0;i<length; i++){
+                progressBar.setValue((int)currentProgress);
+                currentProgress += increment;
+
+                if(check[i]) continue; // 그룹핑 된 이미지는 또 계산하지 않는다.
+
+                ArrayList<File> temp = new ArrayList<>();
+                temp.add(file[i]);
+
+                for(int j=i+1; j<length; j++){
+                    if(check[j]) continue; // 그룹핑 된 이미지는 또 계산하지 않는다.
+
+                    Imgproc.matchTemplate(imgMat[i], imgMat[j], destMat[i],matchMethod);
+                    if(Core.minMaxLoc(destMat[i]).maxVal >= maxVal){
+                        temp.add(file[j]);
+                        check[j] = true;
+                    }
+                }
+                group.add(temp);
+            }
+
+            System.out.println("estimated Time: " + (System.currentTimeMillis()-startTime)/1000.0 + "s");
+            return group;
         }
     }
 }

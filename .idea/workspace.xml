@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6bbd6e85-c974-4f47-bbd0-55a4a71a03a6" name="Default Changelist" comment="" />
+    <list default="true" id="6bbd6e85-c974-4f47-bbd0-55a4a71a03a6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/Comp/MainUi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comp/MainUi.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,18 +46,37 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-1331965168">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="442" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="442" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Comp/MainUi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="499" column="45" selection-start-line="499" selection-start-column="45" selection-end-line="499" selection-end-column="45" />
+            <state relative-caret-position="477">
+              <caret line="692" column="105" selection-start-line="692" selection-start-column="105" selection-end-line="692" selection-end-column="105" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#MainUi#0;class#MainUi#0" />
                 <element signature="class#ImageInfo#0;class#MainUi#0" />
+                <element signature="method#featureComparison#0;class#Comparator#0;class#MainUi#0" />
               </folding>
             </state>
           </provider>
@@ -69,6 +90,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
     <option name="projectSyncType">
@@ -90,18 +114,17 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="543" />
-    <option name="y" value="7" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="285" />
+    <option name="y" value="61" />
     <option name="width" value="1157" />
-    <option name="height" value="1047" />
+    <option name="height" value="879" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -129,11 +152,12 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557630259503" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -179,10 +203,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="543" y="7" width="1157" height="1047" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13648772" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.08093717" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -191,7 +214,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32969433" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.28820962" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23243243" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39891893" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -199,7 +222,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.3231441" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32219252" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -223,16 +246,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Comp/Comparator.java" />
-    <entry file="file://$PROJECT_DIR$/src/Comp/GifProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Comp/GifProcessor.java" />
     <entry file="jar://E:/Program Files/Library/Java/jdk_11/lib/src.zip!/java.desktop/javax/imageio/ImageReader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -242,12 +256,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Comp/MainUi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="499" column="45" selection-start-line="499" selection-start-column="45" selection-end-line="499" selection-end-column="45" />
+        <state relative-caret-position="477">
+          <caret line="692" column="105" selection-start-line="692" selection-start-column="105" selection-end-line="692" selection-end-column="105" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#MainUi#0;class#MainUi#0" />
             <element signature="class#ImageInfo#0;class#MainUi#0" />
+            <element signature="method#featureComparison#0;class#Comparator#0;class#MainUi#0" />
           </folding>
         </state>
       </provider>
