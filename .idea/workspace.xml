@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6bbd6e85-c974-4f47-bbd0-55a4a71a03a6" name="Default Changelist" comment="">
+    <list default="true" id="6bbd6e85-c974-4f47-bbd0-55a4a71a03a6" name="Default Changelist" comment="Add templateMatching function">
       <change beforePath="$PROJECT_DIR$/src/Comp/MainUi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comp/MainUi.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -49,18 +49,21 @@
     <session id="-1331965168">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="442" />
+          <entry key="java" value="1624" />
+          <entry key="txt" value="40" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="442" />
+          <entry key="JAVA" value="1624" />
+          <entry key="PLAIN_TEXT" value="40" />
         </counts>
       </usages-collector>
     </session>
@@ -70,8 +73,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Comp/MainUi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="477">
-              <caret line="692" column="105" selection-start-line="692" selection-start-column="105" selection-end-line="692" selection-end-column="105" />
+            <state relative-caret-position="1049">
+              <caret line="738" column="5" lean-forward="true" selection-start-line="738" selection-start-column="5" selection-end-line="738" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#MainUi#0;class#MainUi#0" />
@@ -214,15 +217,15 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32969433" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23243243" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.23243243" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39891893" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.32219252" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.13405405" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32216215" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -235,6 +238,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add templateMatching function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add templateMatching function" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Test.java" />
@@ -256,8 +263,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Comp/MainUi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
-          <caret line="692" column="105" selection-start-line="692" selection-start-column="105" selection-end-line="692" selection-end-column="105" />
+        <state relative-caret-position="1049">
+          <caret line="738" column="5" lean-forward="true" selection-start-line="738" selection-start-column="5" selection-end-line="738" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#MainUi#0;class#MainUi#0" />

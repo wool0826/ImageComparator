@@ -449,55 +449,55 @@ public class MainUi extends JFrame {
             // 이미지 읽어들이기. 히스토그램 분석한 결과를 저장해 놓을 배열 설정.
             // 경로 또는 이동, 삭제 동작이 수행되지 않은 경우
             // 메모리에 저장된 destMat 을 이용해서 연산을 수행한다.
-            if(changed) {
-                imgMat = new Mat[length];
-                destMat = new Mat[length];
 
-                for (int i = 0; i < length; i++) {
-                    currentProgress += increment;
-                    progressBar.setValue((int) currentProgress);
+            imgMat = new Mat[length];
+            destMat = new Mat[length];
 
-                    imgMat[i] = new Mat();
-                    try {
-                        imgMat[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
-                    } catch (Exception e) {
-                        System.out.println(fileList[i]);
-                        e.printStackTrace();
-                    }
+            for (int i = 0; i < length; i++) {
+                currentProgress += increment;
+                progressBar.setValue((int) currentProgress);
 
+                imgMat[i] = new Mat();
+                try {
+                    imgMat[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
+                } catch (Exception e) {
+                    System.out.println(fileList[i]);
+                    e.printStackTrace();
                 }
 
-                // 비교할 때 명도값이 필요없기 때문에 HSV모델로 변경.
-                for (int i = 0; i < length; i++) {
-                    currentProgress += increment;
-                    progressBar.setValue((int) currentProgress);
+            }
 
-                    destMat[i] = new Mat();
-                    try {
-                        Imgproc.cvtColor(imgMat[i], destMat[i], Imgproc.COLOR_BGR2HSV);
-                    } catch (Exception e) {
-                        System.out.println(fileList[i]);
-                        e.printStackTrace();
-                    }
+            // 비교할 때 명도값이 필요없기 때문에 HSV모델로 변경.
+            for (int i = 0; i < length; i++) {
+                currentProgress += increment;
+                progressBar.setValue((int) currentProgress);
+
+                destMat[i] = new Mat();
+                try {
+                    Imgproc.cvtColor(imgMat[i], destMat[i], Imgproc.COLOR_BGR2HSV);
+                } catch (Exception e) {
+                    System.out.println(fileList[i]);
+                    e.printStackTrace();
                 }
+            }
 
 
-                // 히스토그램 계산을 위한 변수들 선언
-                int hBins = 50, sBins = 60;
-                int[] histSize = {hBins, sBins};
-                float[] ranges = {0, 180, 0, 256};
-                int[] channels = {0, 1};
+            // 히스토그램 계산을 위한 변수들 선언
+            int hBins = 50, sBins = 60;
+            int[] histSize = {hBins, sBins};
+            float[] ranges = {0, 180, 0, 256};
+            int[] channels = {0, 1};
 
-                // 각 결과값을 destMat 에 저장..
-                for (int i = 0; i < length; i++) {
-                    currentProgress += increment;
-                    progressBar.setValue((int) currentProgress);
+            // 각 결과값을 destMat 에 저장..
+            for (int i = 0; i < length; i++) {
+                currentProgress += increment;
+                progressBar.setValue((int) currentProgress);
 
-                    List<Mat> baseList = Arrays.asList(destMat[i]);
-                    Imgproc.calcHist(baseList, new MatOfInt(channels), new Mat(), destMat[i], new MatOfInt(histSize), new MatOfFloat(ranges), false);
-                    Core.normalize(destMat[i], destMat[i], 0, 1, Core.NORM_MINMAX);
-                }
-            } else progressBar.setValue(300);
+                List<Mat> baseList = Arrays.asList(destMat[i]);
+                Imgproc.calcHist(baseList, new MatOfInt(channels), new Mat(), destMat[i], new MatOfInt(histSize), new MatOfFloat(ranges), false);
+                Core.normalize(destMat[i], destMat[i], 0, 1, Core.NORM_MINMAX);
+            }
+
 
             // 실제 비교하는 부분.
             double compareValue[] = {0.1, 10.0, 8.0};
@@ -656,6 +656,7 @@ public class MainUi extends JFrame {
                 progressBar.setValue((int) currentProgress);
 
                 imgMat[i] = new Mat();
+                destMat[i] = new Mat();
                 try {
                     imgMat[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
                 } catch (Exception e) {
@@ -665,7 +666,7 @@ public class MainUi extends JFrame {
             }
 
             int matchMethod = Imgproc.TM_CCOEFF;
-            double maxVal = 0.99;
+            double maxVal = 1e10;
 
             ArrayList<ArrayList<File>> group = new ArrayList<>();
 
@@ -678,13 +679,55 @@ public class MainUi extends JFrame {
                 ArrayList<File> temp = new ArrayList<>();
                 temp.add(file[i]);
 
+                int w = imgMat[i].width();
+                int h = imgMat[i].height();
+
                 for(int j=i+1; j<length; j++){
                     if(check[j]) continue; // 그룹핑 된 이미지는 또 계산하지 않는다.
 
-                    Imgproc.matchTemplate(imgMat[i], imgMat[j], destMat[i],matchMethod);
-                    if(Core.minMaxLoc(destMat[i]).maxVal >= maxVal){
-                        temp.add(file[j]);
-                        check[j] = true;
+                    int curr_w = imgMat[j].width();
+                    int curr_h = imgMat[j].height();
+
+                    double ratio_w = (double) w / curr_w;
+                    double ratio_h = (double) h / curr_h;
+
+                    if((ratio_h - ratio_w) <= 1e-9){
+                        if(curr_h == h){
+                            // 크기가 똑같은 경우.
+                            //System.out.println("SAME " + file[i].getName() + " " + file[j].getName());
+
+                            Imgproc.matchTemplate(imgMat[i], imgMat[j], destMat[i] ,matchMethod);
+
+                            if(Core.minMaxLoc(destMat[i]).maxVal >= maxVal){
+                                System.out.println("SAME " + file[i].getName() + " " + file[j].getName() + " " + Core.minMaxLoc(destMat[i]).maxVal);
+                                temp.add(file[j]);
+                                check[j] = true;
+                            }
+
+                        } else {
+                            //System.out.println("DIFF " + file[i].getName() + " " + file[j].getName());
+                            Mat resized = new Mat();
+                            int selected;
+
+                            if(ratio_w > 0.0){
+                                // imgMat[i] 가 더 큰 경우.
+                                Imgproc.resize(imgMat[j], resized, new Size(w,h));
+                                selected = i;
+                            } else {
+                                // imgMat[j] 가 더 큰 경우.
+                                Imgproc.resize(imgMat[i], resized, new Size(curr_w,curr_h));
+                                selected = j;
+                            }
+
+                            Imgproc.matchTemplate(imgMat[selected], resized, destMat[i] ,matchMethod);
+
+
+                            if(Core.minMaxLoc(destMat[i]).maxVal >= maxVal){
+                                System.out.println("DIFF " + file[i].getName() + " " + file[j].getName() + " " + Core.minMaxLoc(destMat[i]).maxVal);
+                                temp.add(file[j]);
+                                check[j] = true;
+                            }
+                        }
                     }
                 }
                 group.add(temp);
