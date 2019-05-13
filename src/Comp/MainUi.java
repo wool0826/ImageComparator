@@ -693,40 +693,12 @@ public class MainUi extends JFrame {
 
                     if((ratio_h - ratio_w) <= 1e-9){
                         if(curr_h == h){
-                            // 크기가 똑같은 경우.
-                            //System.out.println("SAME " + file[i].getName() + " " + file[j].getName());
-
                             Imgproc.matchTemplate(imgMat[i], imgMat[j], destMat[i] ,matchMethod);
-
                             if(Core.minMaxLoc(destMat[i]).maxVal >= maxVal){
-                                System.out.println("SAME " + file[i].getName() + " " + file[j].getName() + " " + Core.minMaxLoc(destMat[i]).maxVal);
                                 temp.add(file[j]);
                                 check[j] = true;
                             }
 
-                        } else {
-                            //System.out.println("DIFF " + file[i].getName() + " " + file[j].getName());
-                            Mat resized = new Mat();
-                            int selected;
-
-                            if(ratio_w > 0.0){
-                                // imgMat[i] 가 더 큰 경우.
-                                Imgproc.resize(imgMat[j], resized, new Size(w,h));
-                                selected = i;
-                            } else {
-                                // imgMat[j] 가 더 큰 경우.
-                                Imgproc.resize(imgMat[i], resized, new Size(curr_w,curr_h));
-                                selected = j;
-                            }
-
-                            Imgproc.matchTemplate(imgMat[selected], resized, destMat[i] ,matchMethod);
-
-
-                            if(Core.minMaxLoc(destMat[i]).maxVal >= maxVal){
-                                System.out.println("DIFF " + file[i].getName() + " " + file[j].getName() + " " + Core.minMaxLoc(destMat[i]).maxVal);
-                                temp.add(file[j]);
-                                check[j] = true;
-                            }
                         }
                     }
                 }
