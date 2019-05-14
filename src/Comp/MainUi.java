@@ -424,11 +424,163 @@ public class MainUi extends JFrame {
             if(method == 0) return calcHistogram();
             else if(method == 1) return templateMatching();
             else if(method == 2) return featureComparison();
-            else if(method == 3) return null;
+            else if(method == 3) return complexComparison();
 
             return null;
         }
 
+        public ArrayList<ArrayList<File>> complexComparison(){
+            long startTime = System.currentTimeMillis();
+
+            int length = fileList.length;
+
+            double currentProgress = 0;
+            double increment = 100.0 / length;
+
+            // 유사한 이미지들을 그룹핑하기 위해서 배열선언
+            boolean[] check = new boolean[length];
+            for(int i=0; i<length; i++) check[i] = false;
+
+            Mat[] imgMat;
+            Mat[] descriptors = new Mat[length];
+            MatOfKeyPoint[] keyPoints = new MatOfKeyPoint[length];
+
+            FeatureDetector detector = FeatureDetector.create(FeatureDetector.ORB);
+            DescriptorExtractor extractor = DescriptorExtractor.create(DescriptorExtractor.ORB);
+            DescriptorMatcher matcher = DescriptorMatcher.create(DescriptorMatcher.BRUTEFORCE_HAMMING);
+            MatOfDMatch matches = new MatOfDMatch();
+
+            imgMat = new Mat[length];
+            destMat = new Mat[length];
+
+            for (int i = 0; i < length; i++) {
+                currentProgress += increment;
+                progressBar.setValue((int) currentProgress);
+
+                imgMat[i] = new Mat();
+                descriptors[i] = new Mat();
+                keyPoints[i] = new MatOfKeyPoint();
+
+                try {
+                    imgMat[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
+                } catch (Exception e) {
+                    System.out.println(fileList[i]);
+                    e.printStackTrace();
+                }
+
+                detector.detect(imgMat[i], keyPoints[i]);
+                extractor.compute(imgMat[i], keyPoints[i], descriptors[i]);
+            }
+
+            // 비교할 때 명도값이 필요없기 때문에 HSV모델로 변경.
+            for (int i = 0; i < length; i++) {
+                currentProgress += increment;
+                progressBar.setValue((int) currentProgress);
+
+                destMat[i] = new Mat();
+                try {
+                    Imgproc.cvtColor(imgMat[i], destMat[i], Imgproc.COLOR_BGR2HSV);
+                } catch (Exception e) {
+                    System.out.println(fileList[i]);
+                    e.printStackTrace();
+                }
+            }
+
+            // 히스토그램 계산을 위한 변수들 선언
+            int hBins = 50, sBins = 60;
+            int[] histSize = {hBins, sBins};
+            float[] ranges = {0, 180, 0, 256};
+            int[] channels = {0, 1};
+
+            // 각 결과값을 destMat 에 저장..
+            for (int i = 0; i < length; i++) {
+                currentProgress += increment;
+                progressBar.setValue((int) currentProgress);
+
+                List<Mat> baseList = Arrays.asList(destMat[i]);
+                Imgproc.calcHist(baseList, new MatOfInt(channels), new Mat(), destMat[i], new MatOfInt(histSize), new MatOfFloat(ranges), false);
+                Core.normalize(destMat[i], destMat[i], 0, 1, Core.NORM_MINMAX);
+            }
+
+
+
+            // 실제 비교하는 부분.
+            int compareFeatureValue = 5 + criteria;
+            double compareValue[] = {0.15, 9.0, 7.5};
+            ArrayList<ArrayList<File>> group = new ArrayList<>();
+
+            // i: 현재 기준이 될 이미지
+            // j: i번째 이미지와 비교할 이미지들..
+            for(int i =0;i<length; i++){
+                progressBar.setValue((int)currentProgress);
+                currentProgress += increment;
+
+                if(check[i]) continue; // 그룹핑 된 이미지는 또 계산하지 않는다.
+
+                ArrayList<File> temp = new ArrayList<>();
+                temp.add(file[i]);
+
+                for(int j=i+1; j<length; j++){
+                    if(check[j]) continue; // 그룹핑 된 이미지는 또 계산하지 않는다.
+
+                    boolean isSame = true;
+                    double sameFactor = 1.0;
+
+                    for(int method = 0; method < criteria && isSame; method++) {
+                        double result = Imgproc.compareHist(destMat[i], destMat[j], method);
+                        switch(method){
+                            case 0:
+                                if(result < 1- compareValue[method]) isSame = false;
+                                break;
+                            case 1:
+                                if(result > compareValue[method]) isSame = false;
+                                break;
+                            case 2:
+                                if(result < compareValue[method]) isSame = false;
+                                break;
+                            default:
+                                if(result < 1- compareValue[0]) isSame = false;
+                                break;
+                        }
+                    }
+
+                    int ret = 0;
+
+                    if (descriptors[j].cols() == descriptors[i].cols()) {
+                        matcher.match(descriptors[i], descriptors[j] ,matches);
+
+                        // Check matches of key points
+                        DMatch[] match = matches.toArray();
+                        double max_dist = 0; double min_dist = 100;
+
+                        for (int k = 0; k < descriptors[i].rows(); k++) {
+                            double dist = match[k].distance;
+                            if( dist < min_dist ) min_dist = dist;
+                            if( dist > max_dist ) max_dist = dist;
+                        }
+
+                        // Extract good images (distances are under 10)
+                        for (int k = 0; k < descriptors[i].rows(); k++) {
+                            if (match[k].distance <= 10) {
+                                ret++;
+                            }
+                        }
+                    }
+
+                    if(ret < compareFeatureValue) isSame = false;
+
+                    if(isSame){
+                        temp.add(file[j]);
+                        check[j] = true;
+                    }
+                }
+                group.add(temp);
+            }
+
+            System.out.println("estimated Time: " + (System.currentTimeMillis()-startTime)/1000.0 + "s");
+
+            return group;
+        }
         public ArrayList<ArrayList<File>> calcHistogram(){
             long startTime = System.currentTimeMillis();
 
@@ -644,9 +796,6 @@ public class MainUi extends JFrame {
             // 유사한 이미지들을 그룹핑하기 위해서 배열선언
             boolean[] check = new boolean[length];
             for(int i=0; i<length; i++) check[i] = false;
-
-            // 그룹 번호는 0부터 시작.
-            int groupNum = 0;
 
             Mat[] imgMat = new Mat[length];
             destMat = new Mat[length];

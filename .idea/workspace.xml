@@ -49,7 +49,7 @@
     <session id="-1331965168">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.opened" value="2" />
@@ -57,13 +57,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1638" />
+          <entry key="java" value="1946" />
           <entry key="txt" value="40" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1638" />
+          <entry key="JAVA" value="1946" />
           <entry key="PLAIN_TEXT" value="40" />
         </counts>
       </usages-collector>
@@ -74,11 +74,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Comp/MainUi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2347">
-              <caret line="667" column="47" selection-start-line="667" selection-start-column="47" selection-end-line="667" selection-end-column="47" />
+            <state relative-caret-position="140">
+              <caret line="547" lean-forward="true" selection-start-line="547" selection-end-line="547" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="class#ImageInfo#0;class#MainUi#0" />
+                <element signature="method#calcHistogram#0;class#Comparator#0;class#MainUi#0" />
                 <element signature="method#featureComparison#0;class#Comparator#0;class#MainUi#0" />
               </folding>
             </state>
@@ -207,7 +208,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.08146965" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -218,7 +218,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32969433" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23243243" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.23243243" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39891893" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -264,11 +264,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Comp/MainUi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2347">
-          <caret line="667" column="47" selection-start-line="667" selection-start-column="47" selection-end-line="667" selection-end-column="47" />
+        <state relative-caret-position="140">
+          <caret line="547" lean-forward="true" selection-start-line="547" selection-end-line="547" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="class#ImageInfo#0;class#MainUi#0" />
+            <element signature="method#calcHistogram#0;class#Comparator#0;class#MainUi#0" />
             <element signature="method#featureComparison#0;class#Comparator#0;class#MainUi#0" />
           </folding>
         </state>
