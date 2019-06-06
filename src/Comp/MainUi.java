@@ -11,8 +11,8 @@ import org.opencv.core.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -22,14 +22,11 @@ import net.miginfocom.swing.MigLayout;
 import org.opencv.features2d.DescriptorExtractor;
 import org.opencv.features2d.DescriptorMatcher;
 import org.opencv.features2d.FeatureDetector;
-import org.opencv.highgui.*;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
-
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
-
 
 public class MainUi extends JFrame {
 
@@ -47,8 +44,6 @@ public class MainUi extends JFrame {
     public static void main(String[] args) {
 
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-
-
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -254,6 +249,7 @@ public class MainUi extends JFrame {
             if(path == null){
                 JOptionPane.showMessageDialog(MainUi.this, "경로를 설정해주세요.");
             } else {
+
                 File objectDir = new File(path);
                 File[] fileList = objectDir.listFiles((File dir, String name)->{
                     String uName = name.toUpperCase();
@@ -261,116 +257,116 @@ public class MainUi extends JFrame {
                 });
 
                 new Thread(()->{
-                        long startTime = System.currentTimeMillis();
+                    long startTime = System.currentTimeMillis();
 
-                        ArrayList<ArrayList<File>> group = c.calculate(fileList, criteria, methodValue);
+                    ArrayList<ArrayList<File>> group = c.calculate(fileList, criteria, methodValue);
 
-                        if(group == null){
-                            JOptionPane.showMessageDialog(MainUi.this, "예기치 못한 오류가 발생했습니다. 다시 실행해주세요.");
-                            return;
-                        }
+                    if(group == null){
+                        JOptionPane.showMessageDialog(MainUi.this, "예기치 못한 오류가 발생했습니다. 다시 실행해주세요.");
+                        return;
+                    }
 
-                        scrollContent.removeAll();
+                    scrollContent.removeAll();
 
-                        JPanel p = new JPanel();
-                        p.setLayout(new GridLayout(0,1));
+                    JPanel p = new JPanel();
+                    p.setLayout(new GridLayout(0,1));
 
-                        double currentProgress = progressBar.getValue();
-                        double increment = 100.0 / group.size();
+                    double currentProgress = progressBar.getValue();
+                    double increment = 100.0 / group.size();
 
-                        for(ArrayList<File> list : group) {
-                            currentProgress += increment;
-                            progressBar.setValue((int)currentProgress);
-                            if(list.size() == 1) continue;
+                    for(ArrayList<File> list : group) {
+                        currentProgress += increment;
+                        progressBar.setValue((int)currentProgress);
+                        if(list.size() == 1) continue;
 
-                            JPanel temp = new JPanel();
-                            temp.setLayout(new FlowLayout(FlowLayout.LEFT, 5,5));
+                        JPanel temp = new JPanel();
+                        temp.setLayout(new FlowLayout(FlowLayout.LEFT, 5,5));
 
-                            for(File f : list) {
-                                try {
+                        for(File f : list) {
+                            try {
 
-                                    Image i = ImageIO.read(f);
-                                    int width = ((BufferedImage) i).getWidth();
-                                    int height = ((BufferedImage) i).getHeight();
+                                Image i = ImageIO.read(f);
+                                int width = ((BufferedImage) i).getWidth();
+                                int height = ((BufferedImage) i).getHeight();
 
-                                    JLabel image = new JLabel(new ImageIcon(i.getScaledInstance(70,70,Image.SCALE_FAST)));
-                                    resultImageList.add(new ImageInfo(image, f, width, height,i.getScaledInstance(300,300,Image.SCALE_FAST)));
+                                JLabel image = new JLabel(new ImageIcon(i.getScaledInstance(70,70,Image.SCALE_FAST)));
+                                resultImageList.add(new ImageInfo(image, f, width, height,i.getScaledInstance(300,300,Image.SCALE_FAST)));
 
-                                    image.addMouseListener(new MouseListener() {
-                                        @Override
-                                        public void mouseClicked(MouseEvent e) {
-                                            JLabel s = (JLabel)e.getSource();
-                                            int length = resultImageList.size();
+                                image.addMouseListener(new MouseListener() {
+                                    @Override
+                                    public void mouseClicked(MouseEvent e) {
+                                        JLabel s = (JLabel)e.getSource();
+                                        int length = resultImageList.size();
 
-                                            for(int i=0; i<length; i++){
-                                                if(s.equals(resultImageList.get(i).label)){
-                                                    if(s.isEnabled()) {
-                                                        resultImageList.get(i).selected = true;
-                                                        s.setEnabled(false);
-                                                    } else {
-                                                        resultImageList.get(i).selected = false;
-                                                        s.setEnabled(true);
-                                                    }
-                                                    break;
+                                        for(int i=0; i<length; i++){
+                                            if(s.equals(resultImageList.get(i).label)){
+                                                if(s.isEnabled()) {
+                                                    resultImageList.get(i).selected = true;
+                                                    s.setEnabled(false);
+                                                } else {
+                                                    resultImageList.get(i).selected = false;
+                                                    s.setEnabled(true);
                                                 }
+                                                break;
                                             }
                                         }
-                                        @Override
-                                        public void mousePressed(MouseEvent e) {}
-                                        @Override
-                                        public void mouseReleased(MouseEvent e) {}
-                                        @Override
-                                        public void mouseEntered(MouseEvent e) {
-                                            JLabel s = (JLabel)e.getSource();
-                                            int length = resultImageList.size();
+                                    }
+                                    @Override
+                                    public void mousePressed(MouseEvent e) {}
+                                    @Override
+                                    public void mouseReleased(MouseEvent e) {}
+                                    @Override
+                                    public void mouseEntered(MouseEvent e) {
+                                        JLabel s = (JLabel)e.getSource();
+                                        int length = resultImageList.size();
 
-                                            for(int i=0; i<length; i++){
-                                                if(s.equals(resultImageList.get(i).label)){
-                                                    ImageInfo my = resultImageList.get(i);
+                                        for(int i=0; i<length; i++){
+                                            if(s.equals(resultImageList.get(i).label)){
+                                                ImageInfo my = resultImageList.get(i);
 
-                                                    try {
-                                                        imageViewer.add(new JLabel(new ImageIcon(resultImageList.get(i).scaledImage)));
-                                                        details.setText(resultImageList.get(i).path.getAbsolutePath());
-                                                        size.setText(resultImageList.get(i).getDetails());
-                                                    }catch(Exception err){
-                                                        err.printStackTrace();
-                                                    }
-                                                    break;
+                                                try {
+                                                    imageViewer.add(new JLabel(new ImageIcon(resultImageList.get(i).scaledImage)));
+                                                    details.setText(resultImageList.get(i).path.getAbsolutePath());
+                                                    size.setText(resultImageList.get(i).getDetails());
+                                                }catch(Exception err){
+                                                    err.printStackTrace();
                                                 }
+                                                break;
                                             }
                                         }
-                                        @Override
-                                        public void mouseExited(MouseEvent e) {
-                                            imageViewer.removeAll();
-                                            details.setText("");
-                                            size.setText("");
-                                        }
-                                    });
+                                    }
+                                    @Override
+                                    public void mouseExited(MouseEvent e) {
+                                        imageViewer.removeAll();
+                                        details.setText("");
+                                        size.setText("");
+                                    }
+                                });
 
 
-                                    temp.add(image);
-                                }catch(Exception err){
-                                    err.printStackTrace();
-                                }
+                                temp.add(image);
+                            }catch(Exception err){
+                                err.printStackTrace();
                             }
-                            p.add(temp);
                         }
+                        p.add(temp);
+                    }
 
-                        long endTime = System.currentTimeMillis();
+                    long endTime = System.currentTimeMillis();
 
-                        progressBar.setValue(progressBar.getMaximum());
+                    progressBar.setValue(progressBar.getMaximum());
 
-                        analyzeBtn.setEnabled(true);
-                        btnMove.setEnabled(true);
-                        btnRemove.setEnabled(true);
+                    analyzeBtn.setEnabled(true);
+                    btnMove.setEnabled(true);
+                    btnRemove.setEnabled(true);
 
-                        scrollContent.add(p);
-                        scrollPane.updateUI();
+                    scrollContent.add(p);
+                    scrollPane.updateUI();
 
-                        elapsedTime.setText("estimated time: " + (endTime-startTime)/1000.0 + "s");
-                        progressBar.setValue(0);
+                    elapsedTime.setText("estimated time: " + (endTime-startTime)/1000.0 + "s");
+                    progressBar.setValue(0);
 
-                        changed = false;
+                    changed = false;
                 }).start();
             }
         });
@@ -412,7 +408,7 @@ public class MainUi extends JFrame {
         private Mat[] destMat;
         private int criteria;
 
-        public ArrayList<ArrayList<File>> calculate(File[] fileList, int criteria, int method){
+        public ArrayList<ArrayList<File>> calculate(File[] fileList, int criteria, int method) {
 
             this.criteria = criteria;
             this.file = fileList;
@@ -462,7 +458,8 @@ public class MainUi extends JFrame {
                 keyPoints[i] = new MatOfKeyPoint();
 
                 try {
-                    imgMat[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
+                    imgMat[i] = fileOpen(fileList[i]);
+                    //imgMat[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
                 } catch (Exception e) {
                     System.out.println(fileList[i]);
                     e.printStackTrace();
@@ -592,7 +589,7 @@ public class MainUi extends JFrame {
             // 유사한 이미지들을 그룹핑하기 위해서 배열선언
             boolean[] check = new boolean[length];
             for(int i=0; i<length; i++) check[i] = false;
-
+            //java opencv 한글경로
             // 그룹 번호는 0부터 시작.
             int groupNum = 0;
 
@@ -611,7 +608,8 @@ public class MainUi extends JFrame {
 
                 imgMat[i] = new Mat();
                 try {
-                    imgMat[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
+                    imgMat[i] = fileOpen(fileList[i]);
+                    //imgMat[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
                 } catch (Exception e) {
                     System.out.println(fileList[i]);
                     e.printStackTrace();
@@ -729,7 +727,8 @@ public class MainUi extends JFrame {
                 keyPoints[i] = new MatOfKeyPoint();
 
                 try {
-                    img[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
+                    img[i] = fileOpen(fileList[i]);
+                    //img[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
                 }catch(Exception e){
                     e.printStackTrace();
                 }
@@ -807,7 +806,8 @@ public class MainUi extends JFrame {
                 imgMat[i] = new Mat();
                 destMat[i] = new Mat();
                 try {
-                    imgMat[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
+                    imgMat[i] = fileOpen(fileList[i]);
+                    //imgMat[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
                 } catch (Exception e) {
                     System.out.println(fileList[i]);
                     e.printStackTrace();
@@ -857,5 +857,37 @@ public class MainUi extends JFrame {
             System.out.println("estimated Time: " + (System.currentTimeMillis()-startTime)/1000.0 + "s");
             return group;
         }
+    }
+
+    Mat fileOpen(String filepath) {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
+        String filePath = filepath; // 대상 파일
+        FileInputStream fileStream = null; // 파일 스트림
+        Mat imgFrame = new Mat();
+
+        try{
+            fileStream = new FileInputStream(filePath);// 파일 스트림 생성
+
+            byte[ ] readBuffer = new byte[fileStream.available()];
+            while (fileStream.read( readBuffer ) != -1){ }
+
+            imgFrame = Imgcodecs.imdecode(new MatOfByte(readBuffer), Imgcodecs.CV_LOAD_IMAGE_COLOR);
+            //System.out.println(imgFrame);
+
+        }catch (Exception e){
+            System.out.println( "파일 입출력 에러!!" + e );
+        }
+        finally{
+            try
+            {
+                fileStream.close( );
+            }
+            catch ( Exception e )
+            {
+                System.out.println( "닫기 실패" + e );
+            }
+        }
+        return imgFrame;
     }
 }
