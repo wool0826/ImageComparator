@@ -547,7 +547,6 @@ public class MainUi extends JFrame {
             while(index < group.size()){    //histogram으로 만들어진 그룹만큼 회전해야함.
                             // 각각의 그룹에 대해 계산해서 그룹을 분리.
                 int i_length = group.get(index).size();
-                index ++;
                 // 유사한 이미지들을 그룹핑하기 위해서 배열선언
                 boolean[] i_check = new boolean[i_length];
                 for(int i=0; i<i_length; i++) i_check[i] = false;
@@ -555,20 +554,24 @@ public class MainUi extends JFrame {
                 Mat[] i_imgMat = new Mat[i_length];
                 destMat = new Mat[i_length];
 
-                for (int i = 0; i < i_length; i++) {
+                int k = 0;
+                for (File f : group.get(index)) {
                     currentProgress += increment;
                     progressBar.setValue((int) currentProgress);
 
-                    i_imgMat[i] = new Mat();
-                    destMat[i] = new Mat();
+                    i_imgMat[k] = new Mat();
+                    destMat[k] = new Mat();
                     try {
-                        i_imgMat[i] = fileOpen(fileList[i]);
+                        i_imgMat[k] = fileOpen(f.getAbsolutePath());
                         //imgMat[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
                     } catch (Exception e) {
-                        System.out.println(fileList[i]);
+                        System.out.println(f.getAbsolutePath());
                         e.printStackTrace();
                     }
+                    k++;
                 }
+
+
 
                 int matchMethod = Imgproc.TM_CCOEFF_NORMED;
 
@@ -579,7 +582,7 @@ public class MainUi extends JFrame {
                     if(i_check[i]) continue; // 그룹핑 된 이미지는 또 계산하지 않는다.
 
                     ArrayList<File> temp = new ArrayList<>();
-                    temp.add(file[i]);
+                    temp.add(group.get(index).get(i));
 
                     int w = i_imgMat[i].width();
                     int h = i_imgMat[i].height();
@@ -598,14 +601,14 @@ public class MainUi extends JFrame {
                                 Imgproc.matchTemplate(i_imgMat[j], i_imgMat[i], destMat[i] ,matchMethod);
 
                                 if(Core.minMaxLoc(destMat[i]).maxVal >= 0.5){
-                                    temp.add(file[j]);
+                                    temp.add(group.get(index).get(j));
                                     i_check[j] = true;
                                 }
                             } else {
                                 Imgproc.matchTemplate(i_imgMat[i], i_imgMat[j], destMat[i] ,matchMethod);
 
                                 if(Core.minMaxLoc(destMat[i]).maxVal >= 0.5){
-                                    temp.add(file[j]);
+                                    temp.add(group.get(index).get(j));
                                     i_check[j] = true;
                                 }
                             }
@@ -613,6 +616,7 @@ public class MainUi extends JFrame {
                     }
                     res_group.add(temp);
                 }
+                index++;
             }
 
             System.out.println("estimated Time: " + (System.currentTimeMillis()-startTime)/1000.0 + "s");

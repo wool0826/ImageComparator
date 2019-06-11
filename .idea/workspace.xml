@@ -19,18 +19,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Comp/MainUi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="870" column="31" lean-forward="true" selection-start-line="870" selection-start-column="31" selection-end-line="870" selection-end-column="31" />
+            <state relative-caret-position="270">
+              <caret line="618" column="24" selection-start-line="618" selection-start-column="24" selection-end-line="618" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#8017#14509#0" />
-                <element signature="class#10576:13640" />
-                <element signature="method#mouseClicked#0;class#10576:13640" />
                 <element signature="class#ImageInfo#0;class#MainUi#0" />
-                <element signature="method#complexComparison#0;class#Comparator#0;class#MainUi#0" />
-                <element signature="e#19476#22105#1" />
                 <element signature="method#calcHistogram#0;class#Comparator#0;class#MainUi#0" />
                 <element signature="method#featureComparison#0;class#Comparator#0;class#MainUi#0" />
+                <element signature="method#templateMatching#0;class#Comparator#0;class#MainUi#0" />
                 <element signature="method#fileOpen#0;class#MainUi#0" />
               </folding>
             </state>
@@ -137,7 +134,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="98" y="0" width="1445" height="830" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.021598272" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -148,7 +144,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32969433" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.17806268" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.24643874" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39891893" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -186,18 +182,15 @@
     <entry file="jar://E:/Program Files/Library/Java/jdk_11/lib/src.zip!/java.desktop/javax/imageio/ImageReader.java" />
     <entry file="file://$PROJECT_DIR$/src/Comp/MainUi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="870" column="31" lean-forward="true" selection-start-line="870" selection-start-column="31" selection-end-line="870" selection-end-column="31" />
+        <state relative-caret-position="270">
+          <caret line="618" column="24" selection-start-line="618" selection-start-column="24" selection-end-line="618" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#8017#14509#0" />
-            <element signature="class#10576:13640" />
-            <element signature="method#mouseClicked#0;class#10576:13640" />
             <element signature="class#ImageInfo#0;class#MainUi#0" />
-            <element signature="method#complexComparison#0;class#Comparator#0;class#MainUi#0" />
-            <element signature="e#19476#22105#1" />
             <element signature="method#calcHistogram#0;class#Comparator#0;class#MainUi#0" />
             <element signature="method#featureComparison#0;class#Comparator#0;class#MainUi#0" />
+            <element signature="method#templateMatching#0;class#Comparator#0;class#MainUi#0" />
             <element signature="method#fileOpen#0;class#MainUi#0" />
           </folding>
         </state>
