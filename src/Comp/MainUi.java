@@ -19,7 +19,6 @@ import javax.imageio.ImageIO;
 import javax.swing.border.LineBorder;
 
 import net.miginfocom.swing.MigLayout;
-import org.opencv.core.Point;
 import org.opencv.features2d.DescriptorExtractor;
 import org.opencv.features2d.DescriptorMatcher;
 import org.opencv.features2d.FeatureDetector;
@@ -28,8 +27,6 @@ import org.opencv.imgproc.Imgproc;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.opencv.core.Core.NORM_MINMAX;
 
 public class MainUi extends JFrame {
 
@@ -280,7 +277,6 @@ public class MainUi extends JFrame {
                     for(ArrayList<File> list : group) {
                         currentProgress += increment;
                         progressBar.setValue((int)currentProgress);
-                        System.out.println(list.size());
                         if(list.size() == 1) continue;
 
                         JPanel temp = new JPanel();
@@ -440,15 +436,15 @@ public class MainUi extends JFrame {
             // 유사한 이미지들을 그룹핑하기 위해서 배열선언
             boolean[] check = new boolean[length];
             for(int i=0; i<length; i++) check[i] = false;
+            //java opencv 한글경로
+            // 그룹 번호는 0부터 시작.
+            int groupNum = 0;
 
             Mat[] imgMat;
-            Mat[] descriptors = new Mat[length];
-            MatOfKeyPoint[] keyPoints = new MatOfKeyPoint[length];
 
-            FeatureDetector detector = FeatureDetector.create(FeatureDetector.ORB);
-            DescriptorExtractor extractor = DescriptorExtractor.create(DescriptorExtractor.ORB);
-            DescriptorMatcher matcher = DescriptorMatcher.create(DescriptorMatcher.BRUTEFORCE_HAMMING);
-            MatOfDMatch matches = new MatOfDMatch();
+            // 이미지 읽어들이기. 히스토그램 분석한 결과를 저장해 놓을 배열 설정.
+            // 경로 또는 이동, 삭제 동작이 수행되지 않은 경우
+            // 메모리에 저장된 destMat 을 이용해서 연산을 수행한다.
 
             imgMat = new Mat[length];
             destMat = new Mat[length];
@@ -458,9 +454,6 @@ public class MainUi extends JFrame {
                 progressBar.setValue((int) currentProgress);
 
                 imgMat[i] = new Mat();
-                descriptors[i] = new Mat();
-                keyPoints[i] = new MatOfKeyPoint();
-
                 try {
                     imgMat[i] = fileOpen(fileList[i]);
                     //imgMat[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
@@ -469,8 +462,6 @@ public class MainUi extends JFrame {
                     e.printStackTrace();
                 }
 
-                detector.detect(imgMat[i], keyPoints[i]);
-                extractor.compute(imgMat[i], keyPoints[i], descriptors[i]);
             }
 
             // 비교할 때 명도값이 필요없기 때문에 HSV모델로 변경.
@@ -487,6 +478,7 @@ public class MainUi extends JFrame {
                 }
             }
 
+
             // 히스토그램 계산을 위한 변수들 선언
             int hBins = 50, sBins = 60;
             int[] histSize = {hBins, sBins};
@@ -500,14 +492,12 @@ public class MainUi extends JFrame {
 
                 List<Mat> baseList = Arrays.asList(destMat[i]);
                 Imgproc.calcHist(baseList, new MatOfInt(channels), new Mat(), destMat[i], new MatOfInt(histSize), new MatOfFloat(ranges), false);
-                Core.normalize(destMat[i], destMat[i], 0, 1, NORM_MINMAX);
+                Core.normalize(destMat[i], destMat[i], 0, 1, Core.NORM_MINMAX);
             }
 
 
-
             // 실제 비교하는 부분.
-            int compareFeatureValue = 5 + criteria;
-            double compareValue[] = {0.15, 9.0, 7.5};
+            double compareValue[] = {0.1, 10.0, 8.0};
             ArrayList<ArrayList<File>> group = new ArrayList<>();
 
             // i: 현재 기준이 될 이미지
@@ -525,7 +515,6 @@ public class MainUi extends JFrame {
                     if(check[j]) continue; // 그룹핑 된 이미지는 또 계산하지 않는다.
 
                     boolean isSame = true;
-                    double sameFactor = 1.0;
 
                     for(int method = 0; method < criteria && isSame; method++) {
                         double result = Imgproc.compareHist(destMat[i], destMat[j], method);
@@ -544,32 +533,6 @@ public class MainUi extends JFrame {
                                 break;
                         }
                     }
-
-                    int ret = 0;
-
-                    if (descriptors[j].cols() == descriptors[i].cols()) {
-                        matcher.match(descriptors[i], descriptors[j] ,matches);
-
-                        // Check matches of key points
-                        DMatch[] match = matches.toArray();
-                        double max_dist = 0; double min_dist = 100;
-
-                        for (int k = 0; k < descriptors[i].rows(); k++) {
-                            double dist = match[k].distance;
-                            if( dist < min_dist ) min_dist = dist;
-                            if( dist > max_dist ) max_dist = dist;
-                        }
-
-                        // Extract good images (distances are under 10)
-                        for (int k = 0; k < descriptors[i].rows(); k++) {
-                            if (match[k].distance <= 10) {
-                                ret++;
-                            }
-                        }
-                    }
-
-                    if(ret < compareFeatureValue) isSame = false;
-
                     if(isSame){
                         temp.add(file[j]);
                         check[j] = true;
@@ -577,10 +540,83 @@ public class MainUi extends JFrame {
                 }
                 group.add(temp);
             }
+            //여기까지 히스토그램
+            //여기서 템플릿 매칭
+            int index = 0;
+            ArrayList<ArrayList<File>> res_group = new ArrayList<>();
+            while(index < group.size()){    //histogram으로 만들어진 그룹만큼 회전해야함.
+                            // 각각의 그룹에 대해 계산해서 그룹을 분리.
+                int i_length = group.get(index).size();
+                index ++;
+                // 유사한 이미지들을 그룹핑하기 위해서 배열선언
+                boolean[] i_check = new boolean[i_length];
+                for(int i=0; i<i_length; i++) i_check[i] = false;
+
+                Mat[] i_imgMat = new Mat[i_length];
+                destMat = new Mat[i_length];
+
+                for (int i = 0; i < i_length; i++) {
+                    currentProgress += increment;
+                    progressBar.setValue((int) currentProgress);
+
+                    i_imgMat[i] = new Mat();
+                    destMat[i] = new Mat();
+                    try {
+                        i_imgMat[i] = fileOpen(fileList[i]);
+                        //imgMat[i] = Imgcodecs.imread(fileList[i], Imgcodecs.CV_LOAD_IMAGE_COLOR);
+                    } catch (Exception e) {
+                        System.out.println(fileList[i]);
+                        e.printStackTrace();
+                    }
+                }
+
+                int matchMethod = Imgproc.TM_CCOEFF_NORMED;
+
+                for(int i =0;i<i_length; i++){
+                    progressBar.setValue((int)currentProgress);
+                    currentProgress += increment;
+
+                    if(i_check[i]) continue; // 그룹핑 된 이미지는 또 계산하지 않는다.
+
+                    ArrayList<File> temp = new ArrayList<>();
+                    temp.add(file[i]);
+
+                    int w = i_imgMat[i].width();
+                    int h = i_imgMat[i].height();
+
+                    for(int j=i+1; j<i_length; j++){
+                        if(i_check[j]) continue; // 그룹핑 된 이미지는 또 계산하지 않는다.
+
+                        int curr_w = i_imgMat[j].width();
+                        int curr_h = i_imgMat[j].height();
+
+                        double ratio_curr = (double) curr_h / curr_w;
+                        double ratio = (double) h / w;
+
+                        if( Math.abs(ratio_curr - ratio) <= 1e-8){
+                            if(curr_h > h){
+                                Imgproc.matchTemplate(i_imgMat[j], i_imgMat[i], destMat[i] ,matchMethod);
+
+                                if(Core.minMaxLoc(destMat[i]).maxVal >= 0.5){
+                                    temp.add(file[j]);
+                                    i_check[j] = true;
+                                }
+                            } else {
+                                Imgproc.matchTemplate(i_imgMat[i], i_imgMat[j], destMat[i] ,matchMethod);
+
+                                if(Core.minMaxLoc(destMat[i]).maxVal >= 0.5){
+                                    temp.add(file[j]);
+                                    i_check[j] = true;
+                                }
+                            }
+                        }
+                    }
+                    res_group.add(temp);
+                }
+            }
 
             System.out.println("estimated Time: " + (System.currentTimeMillis()-startTime)/1000.0 + "s");
-
-            return group;
+            return res_group;
         }
         public ArrayList<ArrayList<File>> calcHistogram(){
             long startTime = System.currentTimeMillis();
@@ -649,7 +685,7 @@ public class MainUi extends JFrame {
 
                 List<Mat> baseList = Arrays.asList(destMat[i]);
                 Imgproc.calcHist(baseList, new MatOfInt(channels), new Mat(), destMat[i], new MatOfInt(histSize), new MatOfFloat(ranges), false);
-                Core.normalize(destMat[i], destMat[i], 0, 1, NORM_MINMAX);
+                Core.normalize(destMat[i], destMat[i], 0, 1, Core.NORM_MINMAX);
             }
 
 
@@ -819,7 +855,6 @@ public class MainUi extends JFrame {
             }
 
             int matchMethod = Imgproc.TM_CCOEFF_NORMED;
-            double maxVal = 1e7;
 
             ArrayList<ArrayList<File>> group = new ArrayList<>();
 
@@ -848,26 +883,13 @@ public class MainUi extends JFrame {
                         if(curr_h > h){
                             Imgproc.matchTemplate(imgMat[j], imgMat[i], destMat[i] ,matchMethod);
 
-                            //Core.normalize( destMat[i], destMat[i], 0, 1, NORM_MINMAX, -1, new Mat() );
-                            System.out.println(file[i].getName() + " " + file[j].getName());
-
-                            System.out.println(Core.minMaxLoc(destMat[i]).minLoc.x + " " + Core.minMaxLoc(destMat[i]).minLoc.y);
-                            System.out.println(Core.minMaxLoc(destMat[i]).maxLoc.x + " " + Core.minMaxLoc(destMat[i]).maxLoc.y);
-                            System.out.println(Core.minMaxLoc(destMat[i]).minVal + " " + Core.minMaxLoc(destMat[i]).maxVal);
                             if(Core.minMaxLoc(destMat[i]).maxVal >= 0.5){
                                 temp.add(file[j]);
                                 check[j] = true;
                             }
                         } else {
                             Imgproc.matchTemplate(imgMat[i], imgMat[j], destMat[i] ,matchMethod);
-                            System.out.println(file[i].getName() + " " + file[j].getName());
-                            //Core.normalize( destMat[i], destMat[i], 0, 1, NORM_MINMAX, -1, new Mat() );
 
-
-                            System.out.println("Image: " + w + " " + curr_w);
-                            System.out.println(Core.minMaxLoc(destMat[i]).minLoc.x + " " + Core.minMaxLoc(destMat[i]).minLoc.y);
-                            System.out.println(Core.minMaxLoc(destMat[i]).maxLoc.x + " " + Core.minMaxLoc(destMat[i]).maxLoc.y);
-                            System.out.println(Core.minMaxLoc(destMat[i]).minVal + " " + Core.minMaxLoc(destMat[i]).maxVal);
                             if(Core.minMaxLoc(destMat[i]).maxVal >= 0.5){
                                 temp.add(file[j]);
                                 check[j] = true;
@@ -876,14 +898,6 @@ public class MainUi extends JFrame {
                     }
                 }
                 group.add(temp);
-            }
-
-            for(ArrayList<File> g : group){
-                System.out.print("group ");
-                for(File f: g){
-                    System.out.print(f.getAbsoluteFile() + " ");
-                }
-                System.out.println();
             }
 
             System.out.println("estimated Time: " + (System.currentTimeMillis()-startTime)/1000.0 + "s");
