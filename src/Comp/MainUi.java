@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 import javax.swing.border.LineBorder;
 
 import net.miginfocom.swing.MigLayout;
+import org.opencv.core.Point;
 import org.opencv.features2d.DescriptorExtractor;
 import org.opencv.features2d.DescriptorMatcher;
 import org.opencv.features2d.FeatureDetector;
@@ -27,6 +28,8 @@ import org.opencv.imgproc.Imgproc;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.opencv.core.Core.NORM_MINMAX;
 
 public class MainUi extends JFrame {
 
@@ -277,6 +280,7 @@ public class MainUi extends JFrame {
                     for(ArrayList<File> list : group) {
                         currentProgress += increment;
                         progressBar.setValue((int)currentProgress);
+                        System.out.println(list.size());
                         if(list.size() == 1) continue;
 
                         JPanel temp = new JPanel();
@@ -496,7 +500,7 @@ public class MainUi extends JFrame {
 
                 List<Mat> baseList = Arrays.asList(destMat[i]);
                 Imgproc.calcHist(baseList, new MatOfInt(channels), new Mat(), destMat[i], new MatOfInt(histSize), new MatOfFloat(ranges), false);
-                Core.normalize(destMat[i], destMat[i], 0, 1, Core.NORM_MINMAX);
+                Core.normalize(destMat[i], destMat[i], 0, 1, NORM_MINMAX);
             }
 
 
@@ -645,7 +649,7 @@ public class MainUi extends JFrame {
 
                 List<Mat> baseList = Arrays.asList(destMat[i]);
                 Imgproc.calcHist(baseList, new MatOfInt(channels), new Mat(), destMat[i], new MatOfInt(histSize), new MatOfFloat(ranges), false);
-                Core.normalize(destMat[i], destMat[i], 0, 1, Core.NORM_MINMAX);
+                Core.normalize(destMat[i], destMat[i], 0, 1, NORM_MINMAX);
             }
 
 
@@ -814,8 +818,8 @@ public class MainUi extends JFrame {
                 }
             }
 
-            int matchMethod = Imgproc.TM_CCOEFF;
-            double maxVal = 1e10;
+            int matchMethod = Imgproc.TM_CCOEFF_NORMED;
+            double maxVal = 1e7;
 
             ArrayList<ArrayList<File>> group = new ArrayList<>();
 
@@ -837,21 +841,49 @@ public class MainUi extends JFrame {
                     int curr_w = imgMat[j].width();
                     int curr_h = imgMat[j].height();
 
-                    double ratio_w = (double) w / curr_w;
-                    double ratio_h = (double) h / curr_h;
+                    double ratio_curr = (double) curr_h / curr_w;
+                    double ratio = (double) h / w;
 
-                    if((ratio_h - ratio_w) <= 1e-9){
-                        if(curr_h == h){
-                            Imgproc.matchTemplate(imgMat[i], imgMat[j], destMat[i] ,matchMethod);
-                            if(Core.minMaxLoc(destMat[i]).maxVal >= maxVal){
+                    if( Math.abs(ratio_curr - ratio) <= 1e-8){
+                        if(curr_h > h){
+                            Imgproc.matchTemplate(imgMat[j], imgMat[i], destMat[i] ,matchMethod);
+
+                            //Core.normalize( destMat[i], destMat[i], 0, 1, NORM_MINMAX, -1, new Mat() );
+                            System.out.println(file[i].getName() + " " + file[j].getName());
+
+                            System.out.println(Core.minMaxLoc(destMat[i]).minLoc.x + " " + Core.minMaxLoc(destMat[i]).minLoc.y);
+                            System.out.println(Core.minMaxLoc(destMat[i]).maxLoc.x + " " + Core.minMaxLoc(destMat[i]).maxLoc.y);
+                            System.out.println(Core.minMaxLoc(destMat[i]).minVal + " " + Core.minMaxLoc(destMat[i]).maxVal);
+                            if(Core.minMaxLoc(destMat[i]).maxVal >= 0.5){
                                 temp.add(file[j]);
                                 check[j] = true;
                             }
+                        } else {
+                            Imgproc.matchTemplate(imgMat[i], imgMat[j], destMat[i] ,matchMethod);
+                            System.out.println(file[i].getName() + " " + file[j].getName());
+                            //Core.normalize( destMat[i], destMat[i], 0, 1, NORM_MINMAX, -1, new Mat() );
 
+
+                            System.out.println("Image: " + w + " " + curr_w);
+                            System.out.println(Core.minMaxLoc(destMat[i]).minLoc.x + " " + Core.minMaxLoc(destMat[i]).minLoc.y);
+                            System.out.println(Core.minMaxLoc(destMat[i]).maxLoc.x + " " + Core.minMaxLoc(destMat[i]).maxLoc.y);
+                            System.out.println(Core.minMaxLoc(destMat[i]).minVal + " " + Core.minMaxLoc(destMat[i]).maxVal);
+                            if(Core.minMaxLoc(destMat[i]).maxVal >= 0.5){
+                                temp.add(file[j]);
+                                check[j] = true;
+                            }
                         }
                     }
                 }
                 group.add(temp);
+            }
+
+            for(ArrayList<File> g : group){
+                System.out.print("group ");
+                for(File f: g){
+                    System.out.print(f.getAbsoluteFile() + " ");
+                }
+                System.out.println();
             }
 
             System.out.println("estimated Time: " + (System.currentTimeMillis()-startTime)/1000.0 + "s");

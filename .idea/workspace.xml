@@ -14,73 +14,24 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/Multimedia$run1.ic" NAME="run1 Coverage Results" MODIFIED="1557394169706" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="-673016547">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.5" value="1" />
-          <entry key="project.open.time.6" value="3" />
-          <entry key="project.opened" value="5" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="java" value="6" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="JAVA" value="6" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="java" value="16366" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="JAVA" value="16366" />
-        </counts>
-      </usages-collector>
-    </session>
-    <session id="-1331965168">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="2" />
-          <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="2" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="java" value="1946" />
-          <entry key="txt" value="40" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="JAVA" value="1946" />
-          <entry key="PLAIN_TEXT" value="40" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Comp/MainUi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="547" lean-forward="true" selection-start-line="547" selection-end-line="547" />
+            <state relative-caret-position="317">
+              <caret line="870" column="31" lean-forward="true" selection-start-line="870" selection-start-column="31" selection-end-line="870" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#8017#14509#0" />
+                <element signature="class#10576:13640" />
+                <element signature="method#mouseClicked#0;class#10576:13640" />
                 <element signature="class#ImageInfo#0;class#MainUi#0" />
+                <element signature="method#complexComparison#0;class#Comparator#0;class#MainUi#0" />
+                <element signature="e#19476#22105#1" />
                 <element signature="method#calcHistogram#0;class#Comparator#0;class#MainUi#0" />
                 <element signature="method#featureComparison#0;class#Comparator#0;class#MainUi#0" />
+                <element signature="method#fileOpen#0;class#MainUi#0" />
               </folding>
             </state>
           </provider>
@@ -98,13 +49,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GradleLocalSettings">
-    <option name="projectSyncType">
-      <map>
-        <entry key="$PROJECT_DIR$/../nachos-6.0j-master" value="PREVIEW" />
-      </map>
-    </option>
-  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -118,50 +62,35 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="285" />
-    <option name="y" value="61" />
-    <option name="width" value="1157" />
-    <option name="height" value="879" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="122" />
+    <option name="width" value="1807" />
+    <option name="height" value="1038" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="Multimedia" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Multimedia" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Multimedia" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Multimedia" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Multimedia" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Multimedia" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Comp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Multimedia" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="ImageComparator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ImageComparator" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557630259503" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="C:/library/opencv3.4.6/opencv/build/java/x64" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -207,9 +136,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="98" y="0" width="1445" height="830" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.08146965" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.021598272" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -218,7 +148,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32969433" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.23243243" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.17806268" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39891893" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -226,7 +156,8 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.13405405" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.32216215" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.6125356" />
+      <window_info anchor="right" id="Maven" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -236,9 +167,6 @@
       <window_info anchor="right" id="Palette&#9;" order="6" />
       <window_info anchor="right" id="Maven Projects" order="7" />
     </layout>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add templateMatching function" />
@@ -255,22 +183,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Comp/Comparator.java" />
     <entry file="file://$PROJECT_DIR$/src/Comp/GifProcessor.java" />
-    <entry file="jar://E:/Program Files/Library/Java/jdk_11/lib/src.zip!/java.desktop/javax/imageio/ImageReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="937" selection-start-line="937" selection-end-line="937" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://E:/Program Files/Library/Java/jdk_11/lib/src.zip!/java.desktop/javax/imageio/ImageReader.java" />
     <entry file="file://$PROJECT_DIR$/src/Comp/MainUi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="547" lean-forward="true" selection-start-line="547" selection-end-line="547" />
+        <state relative-caret-position="317">
+          <caret line="870" column="31" lean-forward="true" selection-start-line="870" selection-start-column="31" selection-end-line="870" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8017#14509#0" />
+            <element signature="class#10576:13640" />
+            <element signature="method#mouseClicked#0;class#10576:13640" />
             <element signature="class#ImageInfo#0;class#MainUi#0" />
+            <element signature="method#complexComparison#0;class#Comparator#0;class#MainUi#0" />
+            <element signature="e#19476#22105#1" />
             <element signature="method#calcHistogram#0;class#Comparator#0;class#MainUi#0" />
             <element signature="method#featureComparison#0;class#Comparator#0;class#MainUi#0" />
+            <element signature="method#fileOpen#0;class#MainUi#0" />
           </folding>
         </state>
       </provider>
