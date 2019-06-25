@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Multimedia:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="6bbd6e85-c974-4f47-bbd0-55a4a71a03a6" name="Default Changelist" comment="Add templateMatching function">
       <change beforePath="$PROJECT_DIR$/src/Comp/MainUi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Comp/MainUi.java" afterDir="false" />
@@ -14,55 +19,22 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/Multimedia$run1.ic" NAME="run1 Coverage Results" MODIFIED="1557394169706" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="-1331965168">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="java" value="1060" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="JAVA" value="1060" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="java" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="JAVA" value="1" />
-        </counts>
-      </usages-collector>
-    </session>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Comp/MainUi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1329">
-              <caret line="116" column="29" selection-start-line="116" selection-start-column="18" selection-end-line="116" selection-end-column="29" />
+            <state relative-caret-position="2679">
+              <caret line="758" column="21" selection-start-line="758" selection-start-column="21" selection-end-line="758" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5541#6188#0" />
-                <element signature="e#6228#6896#0" />
-                <element signature="e#8017#14509#0" />
+                <element signature="method#MainUi#0;class#MainUi#0" />
                 <element signature="class#ImageInfo#0;class#MainUi#0" />
                 <element signature="method#complexComparison#0;class#Comparator#0;class#MainUi#0" />
-                <element signature="method#calcHistogram#0;class#Comparator#0;class#MainUi#0" />
-                <element signature="method#featureComparison#0;class#Comparator#0;class#MainUi#0" />
-                <element signature="method#templateMatching#0;class#Comparator#0;class#MainUi#0" />
-                <element signature="method#fileOpen#0;class#MainUi#0" />
               </folding>
             </state>
           </provider>
@@ -93,7 +65,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="115" />
     <option name="y" value="1" />
     <option name="width" value="1683" />
@@ -105,6 +77,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -127,16 +100,16 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557630259503" />
-    <property name="last_opened_file_path" value="E:/Library/opencv-3.4.6/opencv/build/java/x64/opencv_java346.dll" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="E:/Program Files/Library/opencv-3.4.6/opencv/build/java/x64/opencv_java346.dll" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -179,9 +152,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="115" y="1" width="1683" height="1038" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20553847" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18743344" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -190,7 +163,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32969433" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.25027564" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.24838012" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39891893" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -198,7 +171,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.13405405" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.61080486" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.4276458" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -209,9 +182,6 @@
       <window_info anchor="right" id="Maven Projects" order="7" />
       <window_info anchor="right" id="Maven" order="8" />
     </layout>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add templateMatching function" />
@@ -231,19 +201,13 @@
     <entry file="jar://E:/Program Files/Library/Java/jdk_11/lib/src.zip!/java.desktop/javax/imageio/ImageReader.java" />
     <entry file="file://$PROJECT_DIR$/src/Comp/MainUi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1329">
-          <caret line="116" column="29" selection-start-line="116" selection-start-column="18" selection-end-line="116" selection-end-column="29" />
+        <state relative-caret-position="2679">
+          <caret line="758" column="21" selection-start-line="758" selection-start-column="21" selection-end-line="758" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5541#6188#0" />
-            <element signature="e#6228#6896#0" />
-            <element signature="e#8017#14509#0" />
+            <element signature="method#MainUi#0;class#MainUi#0" />
             <element signature="class#ImageInfo#0;class#MainUi#0" />
             <element signature="method#complexComparison#0;class#Comparator#0;class#MainUi#0" />
-            <element signature="method#calcHistogram#0;class#Comparator#0;class#MainUi#0" />
-            <element signature="method#featureComparison#0;class#Comparator#0;class#MainUi#0" />
-            <element signature="method#templateMatching#0;class#Comparator#0;class#MainUi#0" />
-            <element signature="method#fileOpen#0;class#MainUi#0" />
           </folding>
         </state>
       </provider>
@@ -253,11 +217,18 @@
     <states>
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
-          <artifact-editor />
+          <artifact-editor>
+            <show-content>
+              <type id="library" />
+              <type id="artifact" />
+            </show-content>
+          </artifact-editor>
+          <last-edited>Multimedia:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>

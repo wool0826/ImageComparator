@@ -43,7 +43,7 @@ public class MainUi extends JFrame {
 
     public static void main(String[] args) {
 
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        System.loadLibrary("opencv-346");
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -767,7 +767,7 @@ public class MainUi extends JFrame {
     }
 
     Mat fileOpen(String filepath) {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        System.loadLibrary("opencv-346");
 
         String filePath = filepath; // 대상 파일
         FileInputStream fileStream = null; // 파일 스트림

@@ -20,19 +20,5 @@
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://E:/Library/opencv-3.4.6/opencv/build/java/opencv-346.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <NATIVE>
-          <root url="file://E:/Library/opencv-3.4.6/opencv/build/java/x64" />
-        </NATIVE>
-        <SOURCES>
-          <root url="jar://E:/Library/opencv-3.4.6/opencv/build/java/opencv-346.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
   </component>
 </module>
